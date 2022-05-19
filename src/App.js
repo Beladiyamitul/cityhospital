@@ -6,6 +6,7 @@ import Doctor from "./Container/Doctor/Doctor";
 import About from "./Container/About/About";
 import Contact from "./Container/Contact/Contact";
 import Home from "./Container/Home/Home";
+import Auth from "./Container/Auth/Auth";
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route exact path={"/doctor"} component={Doctor}/>
           <Route exact path={"/about"} component={About}/>
           <Route exact path={"/contact"} component={Contact}/>
+          <Route exact path={"/auth"} component={Auth}/>
 
   
         </Switch>

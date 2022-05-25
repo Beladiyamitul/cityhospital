@@ -10,7 +10,7 @@ function Auth(props) {
 
   const login ={
     email: yup.string().email("please enter valid email").required("please enter email"),
-    password: yup.string().required("please enter email")
+    password: yup.string().required("please enter Password")
   }
 
   let schema = yup.object().shape(login);

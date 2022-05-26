@@ -20,5 +20,4 @@ function Medicine({data}) {
         </div>
     );
 }
-
 export default Medicine;

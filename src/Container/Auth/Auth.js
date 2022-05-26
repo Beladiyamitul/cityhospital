@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button  , FormGroup , Input , Label} from 'reactstrap';
 import * as yup from 'yup';
-import { Formik, Form , useFormik } from 'formik';
+import { Form, Formik , useFormik } from 'formik';
 
 function Auth(props) {
 
@@ -12,8 +12,12 @@ function Auth(props) {
     email: yup.string().email("please enter valid email").required("please enter email"),
     password: yup.string().required("please enter Password")
   }
+  const signup ={
+    name: yup.string().required("please enter name")
+   
+  }
 
-  let schema = yup.object().shape(login);
+  let schema = yup.object().shape(login , signup);
 
   const formik = useFormik({
     initialValues: {
@@ -45,16 +49,20 @@ function Auth(props) {
                       </div>
               }
              
-            <Formik value={formik}> 
-            <Form  className="php-email-form">
+            <Formik values={formik}> 
+            <Form onSubmit={formik.handleSubmit} className="php-email-form">
               {
                 User === "Signup" ?
                 <div className="row justify-content-center"> 
                     <div className="col-md-4 form-group">
-                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={formik.handleChange} />
                       <div className="validate" />
-                    </div> 
-                   </div> 
+                      {
+                       formik.errors.name ? formik.errors.name :null
+                      }
+                    </div>
+                   
+                   </div>
                 :null
               }
             
@@ -63,6 +71,9 @@ function Auth(props) {
                   <input type="email" className="form-control" name="email" id="email" placeholder="Your Email"
                   onChange={formik.handleChange} />
                   <div className="validate" />
+                  {
+                    formik.errors.email ? formik.errors.email :null
+                  }
                 </div>
               </div>
               <div className="row justify-content-center"> 
@@ -70,12 +81,15 @@ function Auth(props) {
                   <input type="password" className="form-control" name="password" id="password" placeholder="Your password" 
                   onChange={formik.handleChange} />
                   <div className="validate" />
+                  {
+                    formik.errors.password ? formik.errors.password :null
+                  }
                 </div>
               </div>
               <div className='row'>
                 <div className='d-flex  justify-content-center'>
-                <div class="text-center login m-3"><button type="button" onClick={()=> setUserType('login')}>Login</button></div>
-                <div class="text-center signup m-3"><button type="button" onClick={()=> setUserType('Signup')}>Signup</button></div>
+                <div class="text-center login m-3"><button type="submit " onClick={()=> setUserType('login')}>Login</button></div>
+                <div class="text-center signup m-3"><button type="submit" onClick={()=> setUserType('Signup')}>Signup</button></div>
                 </div>
 
               </div>

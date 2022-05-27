@@ -53,9 +53,9 @@ function Login(props) {
     validationSchema: schema,
     onSubmit: values => {
       if (User === 'Login') {
-        console.log('Successfully Login 👍');
+        console.log(' Login Successfully');
       } else if (User === 'Signup') {
-        console.log('Successfully Signup 👍');
+        console.log(' Signup Successfully');
       }
       // else if (User === 'Forgot') {
       //     console.log('Your OTP is : 852002');

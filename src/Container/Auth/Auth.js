@@ -57,9 +57,9 @@ function Login(props) {
       } else if (User === 'Signup') {
         console.log(' Signup Successfully');
       }
-      // else if (User === 'Forgot') {
-      //     console.log('Your OTP is : 852002');
-      // }
+       else if (User === 'Forgot') {
+           console.log('Your OTP is : 852002');
+       }
       // alert(JSON.stringify(values, null, 2));
     }
   });
@@ -86,7 +86,7 @@ function Login(props) {
                 {
                   User === 'Forgot' ?
                     <div className="col-md-4 form-group mt-3 mt-md-0">
-                      <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
+                      <input  className="form-control" name="email" id="email" placeholder="Enter email" onChange={formik.handleChange}/>
                       {
                         formik.errors.email ? <p>{formik.errors.email}</p>
                           :
@@ -114,7 +114,7 @@ function Login(props) {
                   (User === 'Login' || User === 'Signup') ?
                     <>
                       <div className="col-md-4 form-group mt-3 mt-md-0">
-                        <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={formik.handleChange} />
+                        <input  className="form-control" name="email" id="email" placeholder="Your Email" onChange={formik.handleChange} />
                         {
                           formik.errors.email ? <p>{formik.errors.email}</p>
                             :

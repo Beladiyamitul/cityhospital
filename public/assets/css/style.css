@@ -7,7 +7,6 @@ a {
   color: #FF6337;
   text-decoration: none;
 }
-
 a:hover {
   color: #FFA68B;
   text-decoration: none;
@@ -15,6 +14,10 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
+}
+
+.error{
+  color: red;
 }
 
 .login-button{

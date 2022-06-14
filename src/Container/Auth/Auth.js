@@ -47,13 +47,13 @@ function Login(props) {
     }
   }
 
-
   const formik = useFormik({
     initialValues: iniValue,
     validationSchema: schema,
     onSubmit: values => {
       if (User === 'Login') {
         console.log(' Login Successfully');
+        sessionStorage.setItem("user", "12345");
       } else if (User === 'Signup') {
         console.log(' Signup Successfully');
       }

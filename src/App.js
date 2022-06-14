@@ -7,7 +7,9 @@ import About from "./Container/About/About";
 import Contact from "./Container/Contact/Contact";
 import Home from "./Container/Home/Home";
 import Auth from "./Container/Auth/Auth";
-
+import PublicRoute from "./Container/route/PublicRoute";
+import PrivateRoute from "./Container/route/PrivateRoute";
+import Appoinment from "./Container/Appoinment/Appoinment";
 
 
 function App() {
@@ -15,12 +17,13 @@ function App() {
    <>
      <Header/>
         <Switch>
-          <Route exact path={"/"} component={Home}/>
-          <Route exact path={"/department"} component={Department}/>
-          <Route exact path={"/doctor"} component={Doctor}/>
-          <Route exact path={"/about"} component={About}/>
-          <Route exact path={"/contact"} component={Contact}/>
-          <Route exact path={"/auth"} component={Auth}/>
+          <PublicRoute exact path={"/"} component={Home}/>
+          <PublicRoute exact path={"/department"} component={Department}/>
+          <PrivateRoute exact path={"/doctor"} component={Doctor}/>
+          <PublicRoute exact path={"/about"} component={About}/>
+          <PublicRoute exact path={"/contact"} component={Contact}/>
+          <Route exact path={"/appoinment"} component={Appoinment}/>
+          <PublicRoute restricted={true} exact path={"/auth"} component={Auth}/>
 
   
         </Switch>

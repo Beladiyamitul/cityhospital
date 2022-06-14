@@ -11,6 +11,7 @@ const doctordata =  [
     expriance: 7,
     status: true
   },
+  
   {
     id: 102,
     name: 'John White',
@@ -18,7 +19,7 @@ const doctordata =  [
     expriance: 3,
     status: true
   },
-  
+
   {
     id: 103,
     name: 'Umika Loha',

@@ -9,7 +9,6 @@ function PrivateRoute({component : Component , ...rest}) {
         :
         <Redirect to={"/auth"}/>
 
-
        )}
              
 

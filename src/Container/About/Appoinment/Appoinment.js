@@ -6,6 +6,7 @@ import * as yup from 'yup';
 function Appoinment(props) {
 
 
+  
   let schema = yup.object().shape({
     name: yup.string("Please enter your name").required("Please enter your name"),
     email: yup.string().email("Please enter Valid email").required("Please enter your email"),

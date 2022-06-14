@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 
 
+
 function Medicine({data}) {
     return (
 

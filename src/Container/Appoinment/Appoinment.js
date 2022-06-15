@@ -1,12 +1,23 @@
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { form } from 'reactstrap';
 import * as yup from 'yup';
 
 function Appoinment(props) {
 
+  const historydata = useHistory();
 
-  
+  const handleinsert = () => {
+    
+    
+
+
+    historydata.push("/Listappoinment")
+  }
+
+
+
   let schema = yup.object().shape({
     name: yup.string("Please enter your name").required("Please enter your name"),
     email: yup.string().email("Please enter Valid email").required("Please enter your email"),
@@ -17,7 +28,7 @@ function Appoinment(props) {
       return new Date();
     }),
   });
-  
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -29,7 +40,38 @@ function Appoinment(props) {
     validationSchema: schema,
     onSubmit: values => {
       // alert(JSON.stringify(values, null, 2));
-    console.log(JSON.stringify(values, null, 2));
+      // console.log(JSON.stringify(values, null, 2));
+
+      const  {
+        name,
+        email,
+        phone,
+        date,
+        department
+      }=values
+
+      const appodata ={
+        id:Math.floor(Math.random() * 1000),
+        name,
+        email,
+        phone,
+        date,
+        department
+      }
+      console.log(appodata);
+
+      let bookdata = JSON.parse(localStorage.getItem("bookappoinment"));
+
+      if (bookdata == null) {
+        localStorage.setItem("bookappoinment", JSON.stringify([appodata]));
+      }else{
+        bookdata.push(appodata);
+        localStorage.setItem("bookappoinment", JSON.stringify(bookdata));
+      }
+
+
+
+
     }
   });
 
@@ -45,6 +87,18 @@ function Appoinment(props) {
             <p>Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc aliquam eget nibh eu euismod. Donec dapibus
               blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
               Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
+          </div>
+
+          <div className='appoinmentnav'>
+            <div className='row text-center'>
+              <div className='col-6'>
+                <NavLink to={"/appoinment"}>Book Appoinment</NavLink>
+              </div>
+              <div className='col-6'>
+                <NavLink to={"/listappoinment"}>List Appoinment</NavLink>
+              </div>
+            </div>
+
           </div>
 
           <Formik value={formik}>
@@ -118,13 +172,13 @@ function Appoinment(props) {
                     onChange={formik.handleChange}
                     placeholder="Appointment Date"
                     data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                    {
-                  formik.errors.date ? <p className="error">{formik.errors.date}</p>
-                    :
-                    null
-                }
+                  {
+                    formik.errors.date ? <p className="error">{formik.errors.date}</p>
+                      :
+                      null
+                  }
                 </div>
-              
+
 
 
                 <div className="col-md-4 form-group mt-3">
@@ -134,12 +188,12 @@ function Appoinment(props) {
                     <option value="Department 2">Department 2</option>
                     <option value="Department 3">Department 3</option>
                   </select>
-                
-                {
-                  formik.errors.department ? <p className="error">{formik.errors.department}</p>
-                    :
-                    null
-                }
+
+                  {
+                    formik.errors.department ? <p className="error">{formik.errors.department}</p>
+                      :
+                      null
+                  }
                 </div>
 
               </div>
@@ -152,7 +206,7 @@ function Appoinment(props) {
                 <div className="error-message" />
                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
               </div>
-              <div className="text-center"><button type="submit">Make an Appointment</button></div>
+              <div className="text-center"><button className="appointment-btn scrollto" onClick={()=> handleinsert()}>Make an Appointment</button></div>
             </Form>
           </Formik>
         </div>

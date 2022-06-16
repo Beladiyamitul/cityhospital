@@ -591,6 +591,7 @@ section {
   left: calc(50% - 20px);
 }
 
+
 .section-title p {
   margin-bottom: 0;
 }
@@ -1778,4 +1779,31 @@ border: none;
   transition: 0.3s;
   font-size: 14px;
   display: inline-block;
+}
+
+
+a.title-border{
+  position: relative;
+}
+a.title-border::before{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 60px);
+  bottom: -7px;
+}
+a.title-border::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #FF6337;
+  bottom: 0;
+  bottom: -8px;
+  left: calc(50% - 20px);
 }

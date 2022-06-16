@@ -3,18 +3,13 @@ import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { form } from 'reactstrap';
 import * as yup from 'yup';
+import Inputbox from '../../Components/InputBox/Inputbox';
 
 function Appoinment(props) {
 
   const historydata = useHistory();
 
-  const handleinsert = () => {
-    
-    
 
-
-    historydata.push("/Listappoinment")
-  }
 
 
 
@@ -69,6 +64,9 @@ function Appoinment(props) {
         localStorage.setItem("bookappoinment", JSON.stringify(bookdata));
       }
 
+      historydata.push("/Listappoinment")
+
+
 
 
 
@@ -76,7 +74,9 @@ function Appoinment(props) {
   });
 
 
+const {handleSubmit , handleChange , errors} = formik;
 
+console.log(errors);
 
   return (
     <main id="main">
@@ -91,11 +91,11 @@ function Appoinment(props) {
 
           <div className='appoinmentnav'>
             <div className='row text-center'>
-              <div className='col-6'>
-                <NavLink to={"/appoinment"}>Book Appoinment</NavLink>
+              <div className='col-6 mb-5'>
+                <NavLink activeClassName='title-border' to={"/appoinment"}>Book Appoinment</NavLink>
               </div>
-              <div className='col-6'>
-                <NavLink to={"/listappoinment"}>List Appoinment</NavLink>
+              <div className='col-6 mb-5'>
+                <NavLink activeClassName='title-border' to={"/listappoinment"}>List Appoinment</NavLink>
               </div>
             </div>
 
@@ -103,60 +103,51 @@ function Appoinment(props) {
 
           <Formik value={formik}>
 
-            <Form key={formik} onSubmit={formik.handleSubmit} action method="post" role="form" className="php-email-form">
+            <Form key={formik} onSubmit={handleSubmit}  className="php-email-form">
               <div className="row">
                 <div className="col-md-4 form-group">
-                  <input
+                  <Inputbox
                     type="text"
                     name="name"
                     className="form-control"
                     id="name"
                     placeholder="Your Name"
-                    onChange={formik.handleChange}
-                    data-rule="minlen:4"
-                    data-msg="Please enter at least 4 chars" />
-                  {
-                    formik.errors.name ? <p className="error">{formik.errors.name}</p>
-                      :
-                      null
-                  }
+                    error={Boolean(errors.name)}
+                    errormessage={errors.name}
+                    onChange={handleChange}
+                   />
+                 
                 </div>
 
 
                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                  <input
+                  <Inputbox
                     type="email"
                     className="form-control"
                     name="email"
                     id="email"
                     placeholder="Your Email"
-                    onChange={formik.handleChange}
-                    data-rule="email"
-                    data-msg="Please enter a valid email" />
-                  {
-                    formik.errors.email ? <p className="error">{formik.errors.email}</p>
-                      :
-                      null
-                  }
+                    onChange={handleChange}
+                    error={Boolean(errors.email)}
+                    errormessage={errors.email}
+                   />
+                 
                 </div>
 
 
 
                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                  <input
+                  <Inputbox
                     type="tel"
                     className="form-control"
                     name="phone" id="phone"
                     placeholder="Your Phone"
                     maxLength={10}
-                    onChange={formik.handleChange}
-                    data-rule="minlen:4"
-                    data-msg="Please enter at least 4 chars" />
-                  {
-                    formik.errors.phone ? <p className="error">{formik.errors.phone}</p>
-                      :
-                      null
-                  }
+                    onChange={handleChange}
+                    error={Boolean(errors.phone)}
+                    errormessage={errors.phone}
+                    />
+                 
                 </div>
               </div>
 
@@ -164,36 +155,30 @@ function Appoinment(props) {
 
               <div className="row">
                 <div className="col-md-4 form-group mt-3">
-                  <input
+                  <Inputbox
                     type="datetime"
                     name="date"
                     className="form-control datepicker"
                     id="date"
-                    onChange={formik.handleChange}
+                    onChange={handleChange}
                     placeholder="Appointment Date"
-                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  {
-                    formik.errors.date ? <p className="error">{formik.errors.date}</p>
-                      :
-                      null
-                  }
+                    error={Boolean(errors.date)}
+                    errormessage={errors.date}
+                    />
+                
                 </div>
 
 
 
                 <div className="col-md-4 form-group mt-3">
-                  <select name="department" id="department" className="form-select" onChange={formik.handleChange}>
+                  <Inputbox type="select" name="department" id="department" className="form-select" onChange={handleChange} error={Boolean(errors.department)}  errormessage={errors.department}>
                     <option value>Select Department</option>
                     <option value="Department 1">Department 1</option>
                     <option value="Department 2">Department 2</option>
                     <option value="Department 3">Department 3</option>
-                  </select>
+                  </Inputbox>
 
-                  {
-                    formik.errors.department ? <p className="error">{formik.errors.department}</p>
-                      :
-                      null
-                  }
+                 
                 </div>
 
               </div>
@@ -206,7 +191,7 @@ function Appoinment(props) {
                 <div className="error-message" />
                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
               </div>
-              <div className="text-center"><button className="appointment-btn scrollto" onClick={()=> handleinsert()}>Make an Appointment</button></div>
+              <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Make an Appointment</button></div>
             </Form>
           </Formik>
         </div>

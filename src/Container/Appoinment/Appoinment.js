@@ -156,7 +156,7 @@ console.log(errors);
               <div className="row">
                 <div className="col-md-4 form-group mt-3">
                   <Inputbox
-                    type="datetime"
+                    type="date"
                     name="date"
                     className="form-control datepicker"
                     id="date"

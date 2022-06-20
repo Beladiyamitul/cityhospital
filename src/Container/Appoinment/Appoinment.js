@@ -120,7 +120,6 @@ console.log(errors);
                  
                 </div>
 
-
                 <div className="col-md-4 form-group mt-3 mt-md-0">
                   <Inputbox
                     type="email"

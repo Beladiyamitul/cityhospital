@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { DataGrid } from '@mui/x-data-grid';
+
 
 function ListAppoinment(props) {
+
+  const [data , setData]= useState([]);
+
+  const showData = () => {
+   let listData = JSON.parse(localStorage.getItem("bookappoinment"));
+
+   setData(listData);
+
+  }
+
+  useEffect(
+    () =>{
+      showData()
+  },
+  [])
+
+
+  const columns = [
+    { field: 'id', headerName: 'Id', width: 70 },
+    { field: 'name', headerName: 'Name', width: 130 },
+    { field: 'email', headerName: 'Email', width: 130 },
+    { field: 'phone', headerName: 'Phone', width: 130 },
+    { field: 'date', headerName: 'Date', width: 130 },
+    { field: 'department', headerName: 'Department', width: 130 },
+  
+];
+
   return (
     <section id="appointment" className="appointment">
       <div className="container">
@@ -22,6 +51,16 @@ function ListAppoinment(props) {
           </div>
 
         </div>
+        <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={data}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection
+                />
+            </div>
+ 
 
       </div>
     </section>

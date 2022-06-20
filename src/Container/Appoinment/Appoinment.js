@@ -74,7 +74,7 @@ function Appoinment(props) {
   });
 
 
-const {handleSubmit , handleChange , errors} = formik;
+const {handleSubmit , handleChange , errors , handleBlur , touched} = formik;
 
 console.log(errors);
 
@@ -112,9 +112,10 @@ console.log(errors);
                     className="form-control"
                     id="name"
                     placeholder="Your Name"
-                    error={Boolean(errors.name)}
+                    error={Boolean(errors.name && touched.name)}
                     errormessage={errors.name}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                    />
                  
                 </div>
@@ -128,8 +129,9 @@ console.log(errors);
                     id="email"
                     placeholder="Your Email"
                     onChange={handleChange}
-                    error={Boolean(errors.email)}
+                    error={Boolean(errors.email && touched.email)}
                     errormessage={errors.email}
+                    onBlur={handleBlur}
                    />
                  
                 </div>
@@ -144,8 +146,9 @@ console.log(errors);
                     placeholder="Your Phone"
                     maxLength={10}
                     onChange={handleChange}
-                    error={Boolean(errors.phone)}
+                    error={Boolean(errors.phone && touched.phone)}
                     errormessage={errors.phone}
+                    onBlur={handleBlur}
                     />
                  
                 </div>
@@ -162,8 +165,9 @@ console.log(errors);
                     id="date"
                     onChange={handleChange}
                     placeholder="Appointment Date"
-                    error={Boolean(errors.date)}
+                    error={Boolean(errors.date && touched.date)}
                     errormessage={errors.date}
+                    onBlur={handleBlur}
                     />
                 
                 </div>
@@ -171,7 +175,7 @@ console.log(errors);
 
 
                 <div className="col-md-4 form-group mt-3">
-                  <Inputbox type="select" name="department" id="department" className="form-select" onChange={handleChange} error={Boolean(errors.department)}  errormessage={errors.department}>
+                  <Inputbox type="select" name="department" id="department" className="form-select" onChange={handleChange} error={Boolean(errors.department && touched.department)}  errormessage={errors.department}  onBlur={handleBlur}>
                     <option value>Select Department</option>
                     <option value="Department 1">Department 1</option>
                     <option value="Department 2">Department 2</option>

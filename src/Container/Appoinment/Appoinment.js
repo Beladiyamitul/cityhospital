@@ -77,12 +77,12 @@ function Appoinment(props) {
 const {handleSubmit , handleChange , errors , handleBlur , touched , values} = formik;
 
 useEffect(
-  () => {
+  (id) => {
     let dData = JSON.parse(localStorage.getItem("bookappoinment"));
 
-    let filterdata = dData.filter((d) => d.id === id);
+    
 
-    console.log(filterdata);
+    console.log(dData);
   },
 [])
 
@@ -122,6 +122,7 @@ console.log(errors);
                     name="name"
                     className="form-control"
                     id="name"
+                    value={values.name}
                     placeholder="Your Name"
                     error={Boolean(errors.name && touched.name)}
                     errormessage={errors.name}

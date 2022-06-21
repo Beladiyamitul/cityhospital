@@ -1,17 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 
 function ListAppoinment(props) {
+
+  const history = useHistory();
 
   const [data , setData]= useState([]);
 
   const showData = () => {
    let listData = JSON.parse(localStorage.getItem("bookappoinment"));
 
-   setData(listData);
+   if (listData !== null) {
+    setData(listData);
+  }
 
+  }
+
+  const handleDelete =(id) =>{
+    
+    let dData = JSON.parse(localStorage.getItem("bookappoinment"));
+
+    let filterdata = dData.filter((d, i) => d.id !== id);
+
+    localStorage.setItem("bookappoinment" , JSON.stringify(filterdata))
+
+    // console.log(filterdata , id);
+    showData();
+  }
+
+  const handleEdit =(id) =>{
+    history.push("/appoinment")
+    console.log(id);
   }
 
   useEffect(
@@ -28,6 +53,21 @@ function ListAppoinment(props) {
     { field: 'phone', headerName: 'Phone', width: 130 },
     { field: 'date', headerName: 'Date', width: 130 },
     { field: 'department', headerName: 'Department', width: 130 },
+    { field: 'action',
+     headerName: 'Action', 
+     width: 130,
+     renderCell: (params) => {
+      return (
+          <>
+              <Button startIcon={<DeleteIcon />} onClick={() => handleDelete(params.id)}></Button>
+
+              <IconButton aria-label="edit" onClick={()=>handleEdit(params.id)}><ModeEditIcon /></IconButton>
+
+          </>
+      )
+  }
+    
+    },
   
 ];
 

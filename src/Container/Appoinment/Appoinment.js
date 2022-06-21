@@ -1,5 +1,5 @@
 import { Form, Formik, useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { form } from 'reactstrap';
 import * as yup from 'yup';
@@ -51,7 +51,7 @@ function Appoinment(props) {
         email,
         phone,
         date,
-        department
+        department,
       }
       console.log(appodata);
 
@@ -74,7 +74,18 @@ function Appoinment(props) {
   });
 
 
-const {handleSubmit , handleChange , errors , handleBlur , touched} = formik;
+const {handleSubmit , handleChange , errors , handleBlur , touched , values} = formik;
+
+useEffect(
+  () => {
+    let dData = JSON.parse(localStorage.getItem("bookappoinment"));
+
+    let filterdata = dData.filter((d) => d.id === id);
+
+    console.log(filterdata);
+  },
+[])
+
 
 console.log(errors);
 
@@ -119,6 +130,7 @@ console.log(errors);
                    />
                  
                 </div>
+
 
                 <div className="col-md-4 form-group mt-3 mt-md-0">
                   <Inputbox

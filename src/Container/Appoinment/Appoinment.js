@@ -1,16 +1,39 @@
 import { Form, Formik, useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { form } from 'reactstrap';
 import * as yup from 'yup';
 import Inputbox from '../../Components/InputBox/Inputbox';
 
 function Appoinment(props) {
+  const [update , setUpdate] = useState(false);
 
   const historydata = useHistory();
 
 
+const handleUpdate = (udata) =>{
 
+  console.log(udata);
+
+    let updata = JSON.parse(localStorage.getItem("bookappoinment"));
+
+    let finaldata = updata.map((d) =>{
+      if (d.id === udata.id) {
+        return udata
+      }else{
+        return d
+      }
+    })
+
+    localStorage.setItem("bookappoinment" , JSON.stringify(finaldata))
+
+    historydata.push("Listappoinment");
+
+    formik.resetForm();
+    setUpdate(false);
+
+    console.log(finaldata);
+}
 
 
   let schema = yup.object().shape({
@@ -19,6 +42,7 @@ function Appoinment(props) {
     phone: yup.number().required("Please enter your number").positive().integer(),
     date: yup.string().required("Please enter your date"),
     department: yup.string().required("Please Select department"),
+    message: yup.string().required("Enter Message"),
     createdOn: yup.date().default(function () {
       return new Date();
     }),
@@ -31,27 +55,34 @@ function Appoinment(props) {
       phone: "",
       date: "",
       department: "",
+      message:""
     },
     validationSchema: schema,
     onSubmit: values => {
+
+      if (update) {
+        handleUpdate(values)
+      }else{
       // alert(JSON.stringify(values, null, 2));
       // console.log(JSON.stringify(values, null, 2));
 
-      const  {
-        name,
-        email,
-        phone,
-        date,
-        department
-      }=values
-
-      const appodata ={
-        id:Math.floor(Math.random() * 1000),
+      const {
         name,
         email,
         phone,
         date,
         department,
+        message
+      } = values
+
+      const appodata = {
+        id: Math.floor(Math.random() * 1000),
+        name,
+        email,
+        phone,
+        date,
+        department,
+        message
       }
       console.log(appodata);
 
@@ -59,14 +90,14 @@ function Appoinment(props) {
 
       if (bookdata == null) {
         localStorage.setItem("bookappoinment", JSON.stringify([appodata]));
-      }else{
+      } else {
         bookdata.push(appodata);
         localStorage.setItem("bookappoinment", JSON.stringify(bookdata));
       }
 
       historydata.push("/Listappoinment")
 
-
+    }
 
 
 
@@ -74,20 +105,32 @@ function Appoinment(props) {
   });
 
 
-const {handleSubmit , handleChange , errors , handleBlur , touched , values} = formik;
+  const { handleSubmit, handleChange, errors, handleBlur, touched, values } = formik;
 
-useEffect(
-  (id) => {
-    let dData = JSON.parse(localStorage.getItem("bookappoinment"));
+  useEffect(
+    () => {
+      let dData = JSON.parse(localStorage.getItem("bookappoinment"));
 
-    
+      if (dData !== null && props.location.state) {
 
-    console.log(dData);
-  },
-[])
+        let filterdata = dData.filter((d) => d.id === props.location.state.id);
+
+        // console.log(filterdata);
+
+        formik.setValues(filterdata[0])
+        setUpdate(true);
+       
+
+      }
 
 
-console.log(errors);
+
+      // console.log(dData);
+    },
+    [])
+
+
+  console.log(errors);
 
   return (
     <main id="main">
@@ -114,7 +157,7 @@ console.log(errors);
 
           <Formik value={formik}>
 
-            <Form key={formik} onSubmit={handleSubmit}  className="php-email-form">
+            <Form key={formik} onSubmit={handleSubmit} className="php-email-form">
               <div className="row">
                 <div className="col-md-4 form-group">
                   <Inputbox
@@ -128,8 +171,8 @@ console.log(errors);
                     errormessage={errors.name}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                   />
-                 
+                  />
+
                 </div>
 
 
@@ -139,13 +182,14 @@ console.log(errors);
                     className="form-control"
                     name="email"
                     id="email"
+                    value={values.email}
                     placeholder="Your Email"
                     onChange={handleChange}
                     error={Boolean(errors.email && touched.email)}
                     errormessage={errors.email}
                     onBlur={handleBlur}
-                   />
-                 
+                  />
+
                 </div>
 
 
@@ -157,12 +201,13 @@ console.log(errors);
                     name="phone" id="phone"
                     placeholder="Your Phone"
                     maxLength={10}
+                    value={values.phone}
                     onChange={handleChange}
                     error={Boolean(errors.phone && touched.phone)}
                     errormessage={errors.phone}
                     onBlur={handleBlur}
-                    />
-                 
+                  />
+
                 </div>
               </div>
 
@@ -176,38 +221,54 @@ console.log(errors);
                     className="form-control datepicker"
                     id="date"
                     onChange={handleChange}
+                    value={values.date}
                     placeholder="Appointment Date"
                     error={Boolean(errors.date && touched.date)}
                     errormessage={errors.date}
                     onBlur={handleBlur}
-                    />
-                
+                  />
+
                 </div>
 
 
 
                 <div className="col-md-4 form-group mt-3">
-                  <Inputbox type="select" name="department" id="department" className="form-select" onChange={handleChange} error={Boolean(errors.department && touched.department)}  errormessage={errors.department}  onBlur={handleBlur}>
+                  <Inputbox type="select" name="department" id="department" className="form-select" onChange={handleChange} error={Boolean(errors.department && touched.department)} value={values.department} errormessage={errors.department} onBlur={handleBlur}>
                     <option value>Select Department</option>
                     <option value="Department 1">Department 1</option>
                     <option value="Department 2">Department 2</option>
                     <option value="Department 3">Department 3</option>
                   </Inputbox>
 
-                 
+
                 </div>
 
               </div>
               <div className="form-group mt-3">
-                <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)" defaultValue={""} />
+                <Inputbox type="textarea" className="form-control" name="message"  
+                  onChange={handleChange}
+                    value={values.message}
+                   rows={5} placeholder="Message (Optional)"
+                   error={Boolean(errors.message && touched.message)}
+                   errormessage={errors.message}
+                   onBlur={handleBlur}
+                   />
                 <div className="validate" />
               </div>
+
+
               <div className="mb-3">
                 <div className="loading">Loading</div>
                 <div className="error-message" />
                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
               </div>
-              <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Make an Appointment</button></div>
+              {
+                update ?
+                <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Update</button></div>
+                :
+                <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Make an Appointment</button></div>
+
+              }
             </Form>
           </Formik>
         </div>

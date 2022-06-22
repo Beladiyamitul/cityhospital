@@ -26,16 +26,16 @@ function ListAppoinment(props) {
     
     let dData = JSON.parse(localStorage.getItem("bookappoinment"));
 
+
     let filterdata = dData.filter((d, i) => d.id !== id);
 
     localStorage.setItem("bookappoinment" , JSON.stringify(filterdata))
 
-    // console.log(filterdata , id);
     showData();
   }
 
   const handleEdit =(id) =>{
-    history.push("/appoinment")
+    history.push("/appoinment", {"id" : id})
     console.log(id);
   }
 
@@ -53,6 +53,7 @@ function ListAppoinment(props) {
     { field: 'phone', headerName: 'Phone', width: 130 },
     { field: 'date', headerName: 'Date', width: 130 },
     { field: 'department', headerName: 'Department', width: 130 },
+    { field: 'message', headerName: 'Message', width: 130 },
     { field: 'action',
      headerName: 'Action', 
      width: 130,

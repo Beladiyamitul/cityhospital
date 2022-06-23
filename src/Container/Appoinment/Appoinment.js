@@ -264,6 +264,7 @@ const handleUpdate = (udata) =>{
               </div>
               {
                 update ?
+                 
                 <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Update</button></div>
                 :
                 <div className="text-center"><button className="appointment-btn scrollto" type='submit'>Make an Appointment</button></div>

@@ -89,10 +89,10 @@ function ListAppoinment(props) {
         
     ))
     setFilterdata(dataf)
-    console.log(dataf);
+    
 
   }
-  const filterfinal = filterdata.length >0 ? filterdata : data
+  const filterfinal = filterdata.length > 0 ? filterdata : data
 
 
   return (

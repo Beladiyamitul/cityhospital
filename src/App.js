@@ -11,25 +11,33 @@ import PublicRoute from "./Container/route/PublicRoute";
 import PrivateRoute from "./Container/route/PrivateRoute";
 import ListAppoinment from "./Container/Appoinment/ListAppoinment";
 import Appoinment from "./Container/Appoinment/Appoinment";
+import Counter from "./Container/Counter/Counter";
+import { Configreducer } from "./Redux/Store";
+import { Provider } from "react-redux";
 
 
 function App() {
+let store = Configreducer()
+
+
   return (
    <>
+   <Provider store={store}>
      <Header/>
         <Switch>
           <PublicRoute exact path={"/"} component={Home}/>
           <PublicRoute exact path={"/department"} component={Department}/>
           <PrivateRoute exact path={"/doctor"} component={Doctor}/>
           <PublicRoute exact path={"/about"} component={About}/>
+          <PublicRoute exact path={"/counter"} component={Counter}/>
           <PublicRoute exact path={"/contact"} component={Contact}/>
           <PrivateRoute exact path={"/appoinment"} component={Appoinment}/>
           <Route exact path={"/listappoinment"} component={ListAppoinment}/>
           <PublicRoute restricted={true} exact path={"/auth"} component={Auth}/>
 
-  
         </Switch>
     <Footer/>   
+    </Provider>
    
    </>
   );

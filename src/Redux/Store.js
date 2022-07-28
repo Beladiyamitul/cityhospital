@@ -6,15 +6,15 @@ import { rootSaga } from "./ReduxSaga/Rootsaga";
 
 const sagaMiddleware = createSagaMiddleware()
 
-sagaMiddleware.run(rootSaga)
+
 
 
 const middlewares = [thunk , sagaMiddleware]
 
 
 export const Configreducer = () =>{
-    let store = createStore(rootreducer, applyMiddleware(middlewares))
-
+    let store = createStore(rootreducer, applyMiddleware(...middlewares))
+    sagaMiddleware.run(rootSaga)
     return store ;
 
 }

@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../Redux/Action/Auth.action';
 
 function Login(props) {
 
   const [User, setUserType] = useState('Login')
   // const [Reset, setReset] = useState(false)
+
+  const dispatch = useDispatch()
 
   let login = {
     email: yup.string().email("Please enter valid email").required("Please enter Email"),
@@ -55,6 +59,9 @@ function Login(props) {
       if (User === 'Login') {
         console.log(' Login Successfully');
         sessionStorage.setItem("user", "12345");
+
+        dispatch(loginUser(values))
+
       } else if (User === 'Signup') {
         console.log(' Signup Successfully');
       }

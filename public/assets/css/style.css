@@ -1807,3 +1807,14 @@ a.title-border::after {
   bottom: -8px;
   left: calc(50% - 20px);
 }
+
+.light_theme{
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.dark_theme{
+
+  background-color: #000 !important;
+  color: #fff !important;  
+}

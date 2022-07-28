@@ -14,6 +14,7 @@ import Appoinment from "./Container/Appoinment/Appoinment";
 import Counter from "./Container/Counter/Counter";
 import { Configreducer } from "./Redux/Store";
 import { Provider } from "react-redux";
+import { ProviderTheme } from "./Container/ContextApi/ThemeProvider";
 
 
 function App() {
@@ -22,6 +23,7 @@ let store = Configreducer()
 
   return (
    <>
+   <ProviderTheme>
    <Provider store={store}>
      <Header/>
         <Switch>
@@ -38,6 +40,7 @@ let store = Configreducer()
         </Switch>
     <Footer/>   
     </Provider>
+    </ProviderTheme>
    
    </>
   );

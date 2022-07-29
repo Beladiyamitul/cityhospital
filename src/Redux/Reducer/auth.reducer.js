@@ -7,7 +7,7 @@ const initalstate = {
 }
 
 
-export const Counterreducer = (state=initalstate , action) => {
+export const authReducer = (state=initalstate , action) => {
 
     switch (action.type) {
         case ActionType.EMAIL_VERIFY : 

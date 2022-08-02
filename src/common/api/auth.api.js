@@ -26,11 +26,32 @@ export const LoginAPI = (data) => {
           });
           // ...
         })
+
+        .then((emailafterverify) => {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              if (user.emailVerified) {
+                console.log("Email Successfull");
+              }else{
+                console.log("Please Enter Verify Email");
+              }
+            } else {
+              console.log("somthing went wrong");
+            }
+          });
+        })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
 
-          console.log(errorCode);
+          if (errorCode.localeCompare("auth/email-already-in-use")=== 0) {
+            console.log("Email Is Already registered");
+          }
+          else{
+
+            console.log(errorCode);
+          }
+
 
           // ..
         });
